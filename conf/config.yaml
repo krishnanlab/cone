@@ -8,7 +8,7 @@ device: auto
 name: cone
 tag: default
 fullname: ${name}-${network.name}-${context.name}-${tag}
-out_dir: experiments/${fullname}
+out_dir: outputs/${fullname}
 resume_model_ckpt: null  # continue training model by loading weights from ckpt
 dump_ctxt_nets: false  # dump context specific networks and exit
 wandb:
@@ -53,3 +53,6 @@ trainer:
     dump_model: true  # whether to dump model
     dump_interval: 5
     num_saved: -1  # number of dumps saved, -1 means all, 0 means only the latest
+hydra:
+  run:
+    dir: ${out_dir}/hydra/${now:%Y-%m-%d}/${now:%H-%M-%S}
