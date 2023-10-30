@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cone"
+version = "1.0.0"
+description = "Context specific network integration with graph convolution"
+readme = "README.md"
+
+authors = [
+    {name = "Remy Liu", email = "liurenmi@msu.edu"},
+    {name = "Hao Yuan", email = "yuanhao5@msu.edu"},
+]
+license = {text = "MIT license"}
+
+requires-python = ">=3.8"
+
+dependencies = [
+    "click",
+    "hydra-core",
+    "networkx",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "scipy",
+    "tqdm",
+    "wandb",
+]
+
+[tool.setuptools]
+license-files = ["LICENSE"]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+namespaces = false  # disable scanning PEP 420 namespaces
+exclude = ["dev"]
