@@ -47,6 +47,21 @@ python evaluate_disgenet.py --mode cone --emb_dir outputs/cone-pinppi-tissue_gte
 
 The results will be saved to `results/cone-pinppi-tissue_gtex_expr-default-disgenet.csv`
 
+#### PINNACLE therapeutic area prediction benchmark
+
+Run the DisGeNET evaluation on the generated embeddings:
+
+```bash
+python evaluate_ibd_ra.py --mode cone --subset_pinnacle_genes \
+    --emb_dir outputs/cone-pinppi-celltype_pinnacle-default/dump/
+```
+
+**NOTE**: must use the PINNACLE cell type context specific embeddings when
+`--subset_pinnacle_genes` is set (reproducing the setting from the original
+PINNACLE paper).
+
+The results will be saved to `results/cone-pinppi-celltype_pinnacle-default-pinnacle_drug_targets.csv`
+
 ## Cite our work
 
 ```bibtex
