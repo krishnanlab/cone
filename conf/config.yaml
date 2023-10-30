@@ -1,0 +1,55 @@
+---
+defaults:
+  - _self_
+  - network: pinppi
+  - context: tissue_gtex_expr
+homedir: .
+device: auto
+name: cone
+tag: default
+fullname: ${name}-${network.name}-${context.name}-${tag}
+out_dir: experiments/${fullname}
+resume_model_ckpt: null  # continue training model by loading weights from ckpt
+dump_ctxt_nets: false  # dump context specific networks and exit
+wandb:
+  use: false
+  sweep: false  # only used for tuning
+  entity: remyliu
+  project: cone
+  name: ${name}  # need to assign a name
+  group: null  # will be set to config name automatically
+contexts: null  # set to null to disable context
+node_context: null  # set to null to disable node contexts
+model:
+  dim: 128
+  num_layers: 2
+  dropout: 0.0
+  heads: 3
+  random_walk:
+    walk_length: 120
+    context_size: 10
+    walks_per_node: 10
+    num_negative_samples: 1
+    num_workers: 1
+    rw_batch_size: 128  # number of random walks per batch
+  context_encoder:
+    type: MLPContextEncoder  # MLPContextEncoder | EmbeddingContextEncoder | NullContextEncoder
+    dim_hid: 1024
+    num_layers: 2
+    ctxt_sim: jaccard  # jaccard | cosine | rbf | spearman
+trainer:
+  optimizer: AdamW
+  optimizer_kwargs: null  # kwargs besides parameters, lr, and weight_decay
+  lr: 0.001
+  ctxt_lambda: 1
+  clip_grad_norm: 0.002  # set to null to disable gradient clipping
+  track_grad_norm: true
+  weight_decay: 1e-1
+  max_epochs: 120
+  dump:
+    enable: true  # whether to dump results
+    path: ${out_dir}/dump/  # where to dump results
+    dump_embeddings: true  # whether to dump embeddings
+    dump_model: true  # whether to dump model
+    dump_interval: 5
+    num_saved: -1  # number of dumps saved, -1 means all, 0 means only the latest

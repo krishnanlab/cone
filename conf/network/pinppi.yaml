@@ -1,0 +1,4 @@
+name: pinppi
+path: data/networks/pinppi.npz
+weighted: true
+loader: load_edgelist_npz

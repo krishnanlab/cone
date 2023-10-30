@@ -1,0 +1,36 @@
+name: tissue_gtex_expr
+mode: spec  # spec | none
+ctxt_spec_genes:
+  path: data/processed/gene_set_collections/contexts/tissue_gtex_z=1.0.gmt
+  loader: gmt
+  selected_ctxts:  # set to null to use all
+    - Adipose  # 1,470 total (1,028 in BioGRID)
+    - Adrenal_Gland  # 1,139 total (790 in BioGRID)
+    - Artery  # 2,789 total (1,999 in BioGRID)
+    - Bladder  # 497 total (336 in BioGRID)
+    - Brain  # 7,133 total (4,956 in BioGRID)
+    - Breast  # 676 total (434 in BioGRID)
+    - Cervix  # 3,911 total (2,789 in BioGRID)
+    - Colon  # 1,649 total (1,132 in BioGRID)
+    - Esophagus  # 2,381 total (1,732 in BioGRID)
+    - Fallopian_Tube  # 1,830 total (1,275 in BioGRID)
+    - Heart  # 698 total (450 in BioGRID)
+    - Kidney  # 1,399 total (931 in BioGRID)
+    - Liver  # 1,045 total (753 in BioGRID)
+    - Lung  # 2,420 total (1,720 in BioGRID)
+    - Minor_Salivary_Gland  # 1,117 total (706 in BioGRID)
+    - Muscle  # 978 total (710 in BioGRID)
+    - Nerve  # 3,493 total (2,397 in BioGRID)
+    - Ovary  # 3,698 total (2,587 in BioGRID)
+    - Pancreas  # 430 total (282 in BioGRID)
+    - Pituitary  # 3,718 total (2,578 in BioGRID)
+    - Prostate  # 1,306 total (880 in BioGRID)
+    - Skin  # 2,182 total (1,567 in BioGRID)
+    - Small_Intestine  # 1,538 total (1,012 in BioGRID)
+    - Spleen  # 3,031 total (2,060 in BioGRID)
+    - Stomach  # 493 total (325 in BioGRID)
+    - Testis  # 8,604 total (5,265 in BioGRID)
+    - Thyroid  # 3,388 total (2,382 in BioGRID)
+    - Uterus  # 3,111 total (2,234 in BioGRID)
+    - Vagina  # 1,268 total (900 in BioGRID)
+    - Whole_Blood  # 1,362 total (958 in BioGRID)
