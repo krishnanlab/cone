@@ -9,7 +9,7 @@ from typing import Literal
 
 from cone.utils import ensure_dir
 
-HOMEDIR = Path(__file__).resolve().parents[2]
+HOMEDIR = Path(__file__).resolve().parents[1]
 RESULTDIR = ensure_dir(HOMEDIR / "results")
 DATADIR = ensure_dir(HOMEDIR / "data")
 RAW_DATADIR = ensure_dir(DATADIR / "raw")
