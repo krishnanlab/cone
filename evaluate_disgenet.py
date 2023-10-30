@@ -42,15 +42,15 @@ from tqdm import tqdm, trange
 import cone.config
 import cone.metrics
 from cone.data import GMTData
-from cone.utils import get_num_workers
+from cone.utils import ensure_dir, get_num_workers
 
 pd.options.display.max_rows = 1000
 pd.options.display.max_colwidth = 150
 
 SEED = 42
 
-LABEL_FILE_PATH = cone.config.GSC_DIR / "disgenet.gmt"
 LABEL_NAME = "disgenet"
+LABEL_FILE_PATH = cone.config.GSC_DIR / f"{LABEL_NAME}.gmt"
 
 METRIC_DICT = {
     "AUROC": partial(cone.metrics.auroc, reduce="mean"),
@@ -125,7 +125,7 @@ def load_embeddings(
     else:
         raise NotImplementedError(f"Unknown mode {mode!r}")
 
-    save_filename = f"{run_name}_{LABEL_NAME}.csv"
+    save_filename = f"{run_name}-{LABEL_NAME}.csv"
 
     return ids, emb_dict, save_filename
 
@@ -138,17 +138,6 @@ def load_labels(
     print(f"Loading label from {LABEL_FILE_PATH}")
     gmt = GMTData.from_gmt(LABEL_FILE_PATH)
     df = gmt.to_df(gene_ids)
-    # label_dict = {}
-    # with open(LABEL_FILE_PATH) as f:  # FIX: use GMTData?
-    #     for line in f:
-    #         terms = line.rstrip().split("\t")
-    #         label_dict[terms[0]] = sorted_intersect(terms[2:], gene_ids)
-    # label_names = sorted(label_dict)
-
-    # # Set up label matrix with postive examples
-    # df = pd.DataFrame(index=gene_ids, columns=label_names).fillna(0)
-    # for label_name, genes in label_dict.items():
-    #     df.loc[genes, label_name] = 1
 
     # Remove tasks with insufficient positives
     orig_num = df.shape[1]
@@ -396,7 +385,7 @@ def display_summary(
 @click.option("--n_trials", type=int, default=5)
 @click.option("--tag", type=str, default=None)
 @click.option("--num_workers", type=int, default=-1)
-@click.option("--save_dir", type=click.Path(exists=True), default="results/")
+@click.option("--save_dir", type=click.Path(), default="results/")
 def main(
     network: str,
     emb_dir: Optional[str],
@@ -414,6 +403,7 @@ def main(
         network, emb_dir, mode, num_workers, tag, which)
     label_df = load_labels(ids, num_workers=num_workers)
 
+    ensure_dir(save_dir)
     out_path = osp.join(save_dir, save_filename)
     print(f"Results will be saved to {out_path}")
 

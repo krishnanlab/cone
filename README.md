@@ -37,13 +37,15 @@ directory in the run directory. By default, this will be
 
 ### Evaluation
 
+#### DisGeNET disease gene prediction benchmark
+
 Run the DisGeNET evaluation on the generated embeddings:
 
 ```bash
 python evaluate_disgenet.py --mode cone --emb_dir outputs/cone-pinppi-tissue_gtex_expr-default/dump/
 ```
 
-The results will be saved to `results/cone-pinppi-tissue_gtex_expr-default_disgenet.csv`
+The results will be saved to `results/cone-pinppi-tissue_gtex_expr-default-disgenet.csv`
 
 ## Cite our work
 
