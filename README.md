@@ -12,11 +12,12 @@ pip install pip setuptools -U
 pip install torch==2.1.0 --index-url https://download.pytorch.org/whl/cu118
 pip install torch_geometric==2.4.0 torch_cluster==1.6.3 -f https://data.pyg.org/whl/torch-2.1.0+cu118.html
 
-# Install rest of the dependencies
-pip install -r requirements.txt
+# Install CONE along with its requirements (in editable mode)
+pip install -e .
 
-# Clean up (optional)
-conda clean --all -y
+# Optional steps
+pip install -r requirements.txt  # install packages with pinned versioned
+conda clean --all -y  # clean up conda environment
 ```
 
 ## Usage notes
