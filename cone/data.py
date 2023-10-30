@@ -9,8 +9,6 @@ import torch
 from omegaconf import DictConfig
 from torch_geometric.data import Data
 
-from cone import loaders
-
 
 class GMTData:
     TERM_ID_KEY = "term_id"
@@ -135,6 +133,8 @@ class GMTData:
 class NetworkData:
 
     def __init__(self, network_cfg: DictConfig):
+        from cone import loaders
+
         if (data_loader := getattr(loaders, network_cfg.loader)) is None:
             raise ValueError(f"Unknown loader {network_cfg.loader!r}")
         data, self.node_ids = data_loader(network_cfg.path)
