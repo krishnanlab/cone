@@ -123,6 +123,29 @@ class GMTData:
                 line = "\t".join([term_id, term_name] + term_data)
                 f.write(f"{line}\n")
 
+    def to_df(self, selected_ids: Optional[List[str]] = None) -> pd.DataFrame:
+        """Set up label matrix with postive examples marked as 1s.
+
+        Each column is a term (gene set) and each row is a gene.
+
+        Args:
+            selected_ids: Specified gene ordering. If not specified, then use
+                all genes present in the gene set collection ordered
+                alphabetically as the gene ordering. Note that this also act
+                as filtering (only use genes that are present in the selected
+                ids list).
+
+        """
+        from cone.utils import sorted_intersect
+
+        selected_ids = selected_ids or self.entities
+        df = pd.DataFrame(index=selected_ids, columns=self.terms).fillna(0)
+        for term_id, _, term_data in self:
+            filtered_term_data = sorted_intersect(term_data, selected_ids)
+            df.loc[filtered_term_data, term_id] = 1
+
+        return df
+
     @classmethod
     def from_gmt(cls, path: str, exists_ok: bool = False):
         gmt = cls()
